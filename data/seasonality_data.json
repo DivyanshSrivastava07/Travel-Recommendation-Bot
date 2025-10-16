@@ -1,0 +1,16 @@
+{
+  "destinations": {
+    "Paris, France": {
+      "spring": {"crowd_level": "moderate", "activities": ["sightseeing", "gardens"]},
+      "summer": {"crowd_level": "high", "activities": ["outdoor cafes", "Seine cruises"]},
+      "autumn": {"crowd_level": "moderate", "activities": ["museums", "wine tasting"]},
+      "winter": {"crowd_level": "low", "activities": ["shopping", "indoor attractions"]}
+    },
+    "Tokyo, Japan": {
+      "spring": {"crowd_level": "high", "activities": ["cherry blossoms", "festivals"]},
+      "summer": {"crowd_level": "moderate", "activities": ["beaches", "summer festivals"]},
+      "autumn": {"crowd_level": "high", "activities": ["autumn leaves", "temples"]},
+      "winter": {"crowd_level": "moderate", "activities": ["shopping", "hot springs"]}
+    }
+  }
+}
