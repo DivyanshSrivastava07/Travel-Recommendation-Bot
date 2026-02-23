@@ -1,0 +1,4 @@
+- Add short-term memory for previous recommendations and allow follow-up questions.
+- ExcaliDraw link -  https://excalidraw.com/#json=HVSllmrlkJV0YpjSDftjI,HBLGMkBJEFyN5IjwEemFoA
+- Add Permanent storage.
+- Past Recommendations(today,yesterday etc).
