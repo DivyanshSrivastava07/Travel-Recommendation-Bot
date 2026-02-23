@@ -16,7 +16,7 @@ class SeasonalityTool(BaseTool):
     args_schema: Type[BaseModel] = SeasonalityToolInput
 
     def _run(self, location: str, date: str, preferences: str) -> str:
-        # Parse date and determine season
+        
         travel_date = datetime.strptime(date, "%Y-%m-%d")
         month = travel_date.month
 
@@ -29,7 +29,7 @@ class SeasonalityTool(BaseTool):
 
         current_season = next(season for season, months in seasons.items() if month in months)
 
-        # Basic seasonality analysis based on preferences
+        
         if "beach" in preferences.lower() or "sun" in preferences.lower():
             crowd_level = "high" if current_season == "summer" else "low"
             weather_suitability = "excellent" if current_season == "summer" else "poor"

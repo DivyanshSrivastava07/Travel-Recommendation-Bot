@@ -16,7 +16,7 @@ class WeatherTool(BaseTool):
     def _run(self, location: str, date: str) -> str:
         api_key = os.getenv("OPENWEATHERMAP_API_KEY")
 
-        # Geocoding to get coordinates
+        
         geo_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={api_key}"
         geo_response = requests.get(geo_url)
         geo_data = geo_response.json()
@@ -26,12 +26,12 @@ class WeatherTool(BaseTool):
 
         lat, lon = geo_data[0]["lat"], geo_data[0]["lon"]
 
-        # Get weather forecast
+        
         weather_url = f"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={api_key}&units=metric"
         weather_response = requests.get(weather_url)
         weather_data = weather_response.json()
 
-        # Process forecast data
+        
         target_date = date
         forecasts = []
 
@@ -48,7 +48,7 @@ class WeatherTool(BaseTool):
         if not forecasts:
             return f"No weather forecast available for {location} on {date}"
 
-        # Generate weather summary
+        
         avg_temp = sum(f["temperature"] for f in forecasts) / len(forecasts)
         rain_total = sum(f["rain"] for f in forecasts)
         conditions = list(set(f["description"] for f in forecasts))

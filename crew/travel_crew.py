@@ -12,14 +12,14 @@ class TravelRecommendationCrew:
         self.response_agent = ResponseAgent(llm).get_agent()
 
     def create_tasks(self, destination: str, travel_date: str, preferences: str):
-        # Weather Task
+    
         weather_task = Task(
             description=f"Get detailed weather forecast for {destination} on {travel_date}. Focus on temperature, precipitation, and conditions affecting travel.",
             agent=self.weather_agent,
             expected_output="Detailed weather forecast with suitability assessment"
         )
 
-        # Analysis Task
+        
         analysis_task = Task(
             description=f"Analyze travel suitability for {destination} on {travel_date} considering preferences: {preferences}. Use weather data and seasonality information.",
             agent=self.analysis_agent,
@@ -27,7 +27,7 @@ class TravelRecommendationCrew:
             context=[weather_task]
         )
 
-        # Response Task
+        
         response_task = Task(
             description=f"Provide clear recommendation for visiting {destination} on {travel_date} with preferences: {preferences}. Include: 1) Go/Avoid/Consider recommendation, 2) Weather-based reasoning, 3) Tips or alternatives, 4) Suitability score (1-10)",
             agent=self.response_agent,
@@ -43,6 +43,24 @@ class TravelRecommendationCrew:
         crew = Crew(
             agents=[self.weather_agent, self.analysis_agent, self.response_agent],
             tasks=tasks,
+            process=Process.sequential,
+            verbose=True
+        )
+
+        result = crew.kickoff()
+        return result
+
+    def get_follow_up_recommendation(self, previous_recommendation: str, follow_up_question: str):
+        from crewai import Task
+        follow_up_task = Task(
+            description=f"Answer the follow-up question based on the previous recommendation: {previous_recommendation}. Question: {follow_up_question}",
+            agent=self.response_agent,
+            expected_output="Clear, concise answer to the follow-up question based on prior context"
+        )
+
+        crew = Crew(
+            agents=[self.response_agent],
+            tasks=[follow_up_task],
             process=Process.sequential,
             verbose=True
         )
